@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Profile</title>
+
+<link rel="stylesheet" href="css/profile.css">
+</head>
+
+<body>
+
+<div class="profile-container">
+
+    <div class="profile-header">
+
+        <h1>👤 My Profile</h1>
+
+        <a href="dashboard.html" class="back-btn">
+            ← Dashboard
+        </a>
+
+    </div>
+
+    <div class="profile-card">
+
+        <div class="avatar" id="avatar">S</div>
+
+        <h2 id="name">User</h2>
+
+        <div class="profile-info">
+
+            <p>📧 Email: <span id="email"></span></p>
+
+            <p>📱 Mobile: <span id="mobile"></span></p>
+
+            <p>👤 Username: <span id="username"></span></p>
+
+            <p>🎂 Date Of Birth: <span id="dob"></span></p>
+
+            <p>⚧ Gender: <span id="gender"></span></p>
+
+        </div>
+
+        <div class="profile-actions">
+
+            <button
+            class="profile-btn"
+            onclick="showEditForm()">
+
+                ✏️ Edit Profile
+
+            </button>
+
+            <button
+            class="profile-btn"
+            onclick="showPasswordForm()">
+
+                🔒 Change Password
+
+            </button>
+
+        </div>
+
+        <!-- EDIT PROFILE -->
+
+        <div id="editSection" style="display:none; margin-top:25px;">
+
+            <input id="editName" placeholder="Name">
+
+            <br><br>
+
+            <input id="editEmail" placeholder="Email">
+
+            <br><br>
+
+            <input id="editMobile" placeholder="Mobile">
+
+            <br><br>
+
+            <input type="date" id="editDob">
+
+            <br><br>
+
+            <select id="editGender">
+
+                <option>Male</option>
+                <option>Female</option>
+                <option>Other</option>
+
+            </select>
+
+            <br><br>
+
+            <button onclick="saveProfile()">
+                Save Profile
+            </button>
+
+        </div>
+
+        <!-- CHANGE PASSWORD -->
+
+        <div id="passwordSection" style="display:none; margin-top:25px;">
+
+            <input
+            type="password"
+            id="oldPassword"
+            placeholder="Current Password">
+
+            <br><br>
+
+            <input
+            type="password"
+            id="newPassword"
+            placeholder="New Password">
+
+            <br><br>
+
+            <button onclick="changePassword()">
+                Update Password
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="js/profile.js"></script>
+
+</body>
+</html>

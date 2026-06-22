@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+
+<body>
+
+<div class="dashboard-layout">
+
+    <!-- Sidebar -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <h2>🚀 TaskFlow</h2>
+        </div>
+
+        <ul class="menu">
+
+            <li class="active">
+                📊 Dashboard
+            </li>
+
+            <li>
+                <a href="index.html">
+                    📋 Task Manager
+                </a>
+            </li>
+
+            <li>
+                <a href="profile.html">
+                    👤 Profile
+                </a>
+            </li>
+
+            <li onclick="logout()" class="logout-btn">
+                🚪 Logout
+            </li>
+
+        </ul>
+
+    </aside>
+
+    <!-- Main Content -->
+
+    <main class="main-content">
+
+        <!-- Top Section -->
+
+        <div class="topbar">
+
+            <div>
+
+                <h1 id="welcome">
+                    Welcome 👋
+                </h1>
+
+                <p class="subtitle">
+                    Manage your daily work efficiently
+                </p>
+
+            </div>
+
+            <div class="profile-card">
+
+                <h3 id="profileName">
+                    User
+                </h3>
+
+                <p>
+                    TaskFlow Account
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- Statistics -->
+
+        <div class="stats-grid">
+
+            <div class="stat-card">
+                <h3>📋 Total Tasks</h3>
+                <h1 id="totalTasks">0</h1>
+            </div>
+
+            <div class="stat-card">
+                <h3>✅ Completed</h3>
+                <h1 id="completedTasks">0</h1>
+            </div>
+
+            <div class="stat-card">
+                <h3>⏳ Pending</h3>
+                <h1 id="pendingTasks">0</h1>
+            </div>
+            <div class="stat-card">
+    <h3>🚨 Overdue</h3>
+    <h1 id="overdueTasks">0</h1>
+</div>
+
+        </div>
+
+        <!-- Recent Tasks -->
+
+        <div class="recent-section">
+
+            <div class="section-header">
+
+                <h2>
+                    Recent Tasks
+                </h2>
+
+                <a href="index.html" class="manage-btn">
+                    Manage Tasks →
+                </a>
+
+            </div>
+
+            <div id="recentTasks">
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script src="js/dashboard.js"></script>
+
+</body>
+
+</html>

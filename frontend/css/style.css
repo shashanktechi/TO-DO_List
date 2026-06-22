@@ -1,0 +1,369 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:linear-gradient(135deg,#4f46e5,#7c3aed);
+    color:white;
+    padding:40px;
+}
+
+/* PAGE */
+
+.task-page{
+    max-width:1500px;
+    margin:auto;
+}
+
+/* TOP BUTTONS */
+
+.top-actions{
+    display:flex;
+    justify-content:flex-end;
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.dashboard-btn{
+    text-decoration:none;
+    background:#06b6d4;
+    color:white;
+    padding:12px 22px;
+    border-radius:12px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.dashboard-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 8px 20px rgba(0,0,0,.2);
+}
+
+/* HEADER */
+
+.task-header{
+    margin-bottom:30px;
+}
+
+.task-header h1{
+    font-size:60px;
+    font-weight:700;
+    margin-bottom:10px;
+}
+
+.task-subtitle{
+    font-size:22px;
+    opacity:.9;
+}
+
+/* ADD TASK BOX */
+
+.add-task-box{
+
+    background:rgba(255,255,255,.12);
+
+    backdrop-filter:blur(15px);
+
+    border-radius:25px;
+
+    padding:25px;
+
+    display:grid;
+
+    grid-template-columns:
+    1.2fr
+    1fr
+    220px
+    260px
+    170px;
+
+    gap:15px;
+
+    align-items:center;
+
+    margin-bottom:40px;
+}
+
+.add-task-box input,
+.add-task-box textarea,
+.add-task-box select{
+
+    border:none;
+
+    outline:none;
+
+    border-radius:15px;
+
+    padding:18px;
+
+    font-size:16px;
+
+    background:white;
+
+    color:#333;
+}
+
+.add-task-box textarea{
+    resize:none;
+    height:65px;
+}
+
+.add-task-box button{
+
+    border:none;
+
+    border-radius:15px;
+
+    padding:18px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    color:white;
+
+    background:
+    linear-gradient(
+    135deg,
+    #06b6d4,
+    #3b82f6
+    );
+
+    transition:.3s;
+}
+
+.add-task-box button:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+    0 10px 25px
+    rgba(0,0,0,.25);
+}
+
+/* TASK GRID */
+
+.task-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(
+    auto-fill,
+    minmax(420px,1fr)
+    );
+
+    gap:25px;
+}
+
+/* TASK CARD */
+
+.task-card{
+
+    background:
+    rgba(255,255,255,.12);
+
+    backdrop-filter:blur(15px);
+
+    border-radius:25px;
+
+    padding:25px;
+
+    transition:.3s;
+
+    box-shadow:
+    0 10px 25px
+    rgba(0,0,0,.15);
+}
+
+.task-card:hover{
+
+    transform:
+    translateY(-6px);
+
+    box-shadow:
+    0 15px 35px
+    rgba(0,0,0,.25);
+}
+
+.task-card h3{
+
+    font-size:28px;
+
+    margin-bottom:15px;
+}
+
+.description{
+
+    color:#f3f4f6;
+
+    margin-bottom:18px;
+
+    line-height:1.6;
+}
+
+/* PRIORITY */
+
+.priority-high{
+    color:#ef4444;
+    font-weight:bold;
+}
+
+.priority-medium{
+    color:#f59e0b;
+    font-weight:bold;
+}
+
+.priority-low{
+    color:#22c55e;
+    font-weight:bold;
+}
+
+/* STATUS */
+
+.completed{
+    color:#22c55e;
+    font-weight:bold;
+}
+
+.pending{
+    color:#fbbf24;
+    font-weight:bold;
+}
+
+/* TIMER */
+
+.timer{
+
+    margin-top:15px;
+
+    margin-bottom:20px;
+
+    font-size:17px;
+
+    color:#fde68a;
+
+    font-weight:600;
+}
+
+/* ACTIONS */
+
+.task-actions{
+
+    display:flex;
+
+    gap:15px;
+
+    margin-top:15px;
+}
+
+.complete-btn{
+
+    flex:1;
+
+    border:none;
+
+    padding:14px;
+
+    border-radius:12px;
+
+    background:#22c55e;
+
+    color:white;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    cursor:pointer;
+}
+
+.delete-btn{
+
+    flex:1;
+
+    border:none;
+
+    padding:14px;
+
+    border-radius:12px;
+
+    background:#ef4444;
+
+    color:white;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    cursor:pointer;
+}
+
+.complete-btn:hover,
+.delete-btn:hover{
+
+    transform:translateY(-2px);
+}
+
+/* MOBILE */
+
+@media(max-width:1200px){
+
+    .add-task-box{
+
+        grid-template-columns:1fr;
+    }
+
+    .task-header h1{
+
+        font-size:45px;
+    }
+}
+
+@media(max-width:768px){
+
+    body{
+        padding:20px;
+    }
+
+    .task-header h1{
+        font-size:36px;
+    }
+
+    .task-subtitle{
+        font-size:18px;
+    }
+
+    .task-grid{
+        grid-template-columns:1fr;
+    }
+
+    .top-actions{
+        flex-direction:column;
+    }
+}
+.task-card p{
+    margin-bottom:10px;
+    font-size:16px;
+}
+
+.task-card .description{
+    min-height:60px;
+    color:#f1f5f9;
+}
+
+.task-card .due-date{
+    color:#cbd5e1;
+    font-size:14px;
+}
+
+.overdue{
+    color:#ef4444;
+    font-weight:bold;
+}
