@@ -1,15 +1,11 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "TaskFlow Backend",
   "main": "app.js",
   "scripts": {
-<<<<<<< HEAD
-    "test": "echo \"Error: no test specified\" && exit 1",
-     "start": "node app.js"
-=======
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
->>>>>>> frontend
   },
   "keywords": [],
   "author": "",
@@ -18,10 +14,6 @@
   "dependencies": {
     "cors": "^2.8.6",
     "express": "^5.2.1",
-<<<<<<< HEAD
-=======
-    "mysql": "^2.18.1",
->>>>>>> frontend
     "mysql2": "^3.22.5"
   }
 }

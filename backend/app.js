@@ -1,52 +1,24 @@
 const express = require("express");
-<<<<<<< HEAD
-
-const app = express();
-
-app.use(express.json());
-
-let tasks = [
-  { id: 1, title: "Learn Node.js", status: "Pending" },
-  { id: 2, title: "Build To-Do API", status: "Completed" }
-];
-
-=======
+const cors = require("cors");
 const db = require("./db");
 
 const app = express();
-const cors = require("cors");
 
 app.use(cors());
 app.use(express.json());
 
->>>>>>> frontend
-// Home Route
+// ===========================
+// HOME ROUTE
+// ===========================
+
 app.get("/", (req, res) => {
-  res.send("TO-DO API Running Successfully");
+    res.send("TO-DO API Running Successfully");
 });
 
-<<<<<<< HEAD
-// Get All Tasks
-app.get("/tasks", (req, res) => {
-  res.json(tasks);
-});
+// ===========================
+// GET TASKS OF LOGGED USER
+// ===========================
 
-// Add New Task
-app.post("/tasks", (req, res) => {
-  const newTask = {
-    id: tasks.length + 1,
-    title: req.body.title,
-    status: "Pending"
-  };
-
-  tasks.push(newTask);
-  res.status(201).json(newTask);
-});
-
-const PORT = 3000;
-
-=======
-// GET ALL TASKS
 app.get("/tasks/:userId", (req, res) => {
 
     const userId = req.params.userId;
@@ -61,7 +33,8 @@ app.get("/tasks/:userId", (req, res) => {
         [userId],
         (err, results) => {
 
-            if(err){
+            if (err) {
+                console.log(err);
                 return res.status(500).json(err);
             }
 
@@ -69,7 +42,11 @@ app.get("/tasks/:userId", (req, res) => {
         }
     );
 });
+
+// ===========================
 // ADD TASK
+// ===========================
+
 app.post("/tasks", (req, res) => {
 
     const {
@@ -79,6 +56,11 @@ app.post("/tasks", (req, res) => {
         due_date,
         user_id
     } = req.body;
+
+    const formattedDueDate =
+        due_date && due_date.trim() !== ""
+            ? due_date
+            : null;
 
     db.query(
         `
@@ -104,35 +86,44 @@ app.post("/tasks", (req, res) => {
             title,
             description,
             priority,
-            due_date,
+            formattedDueDate,
             user_id
         ],
         (err, result) => {
 
-            if(err){
+            if (err) {
                 console.log(err);
                 return res.status(500).json(err);
             }
 
             res.json({
-                message:"Task Added Successfully"
+                message: "Task Added Successfully"
             });
         }
     );
 });
-// UPDATE TASK
+
+// ===========================
+// UPDATE TASK STATUS
+// ===========================
+
 app.put("/tasks/:id", (req, res) => {
 
     const id = req.params.id;
-    const status = req.body.status;
+
+    const { status } = req.body;
 
     db.query(
-        "UPDATE tasks1 SET status=? WHERE id=?",
+        `
+        UPDATE tasks1
+        SET status=?
+        WHERE id=?
+        `,
         [status, id],
         (err, result) => {
 
             if (err) {
-                console.error(err);
+                console.log(err);
                 return res.status(500).json(err);
             }
 
@@ -141,29 +132,40 @@ app.put("/tasks/:id", (req, res) => {
             });
         }
     );
-});// DELETE TASK
-app.delete("/tasks/:id", (req, res) => {
-  const { id } = req.params;
-
-  db.query(
-    "DELETE FROM tasks1 WHERE id=?",
-    [id],
-    (err, result) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).json({
-          message: "Failed to delete task"
-        });
-      }
-
-      res.json({
-        message: "Task Deleted Successfully"
-      });
-    }
-  );
 });
 
-const PORT = 3000;
+// ===========================
+// DELETE TASK
+// ===========================
+
+app.delete("/tasks/:id", (req, res) => {
+
+    const id = req.params.id;
+
+    db.query(
+        `
+        DELETE FROM tasks1
+        WHERE id=?
+        `,
+        [id],
+        (err, result) => {
+
+            if (err) {
+                console.log(err);
+                return res.status(500).json(err);
+            }
+
+            res.json({
+                message: "Task Deleted Successfully"
+            });
+        }
+    );
+});
+
+// ===========================
+// REGISTER
+// ===========================
+
 app.post("/register", (req, res) => {
 
     const {
@@ -177,9 +179,20 @@ app.post("/register", (req, res) => {
     } = req.body;
 
     db.query(
-        `INSERT INTO users
-        (name,dob,gender,email,mobile,username,password)
-        VALUES(?,?,?,?,?,?,?)`,
+        `
+        INSERT INTO users
+        (
+            name,
+            dob,
+            gender,
+            email,
+            mobile,
+            username,
+            password
+        )
+        VALUES
+        (?,?,?,?,?,?,?)
+        `,
         [
             name,
             dob,
@@ -192,6 +205,7 @@ app.post("/register", (req, res) => {
         (err, result) => {
 
             if (err) {
+                console.log(err);
                 return res.status(500).json(err);
             }
 
@@ -201,22 +215,32 @@ app.post("/register", (req, res) => {
         }
     );
 });
+
+// ===========================
+// LOGIN
+// ===========================
+
 app.post("/login", (req, res) => {
 
     const { login, password } = req.body;
 
     db.query(
-        `SELECT * FROM users
-         WHERE (username=? OR email=?)
-         AND password=?`,
+        `
+        SELECT *
+        FROM users
+        WHERE (username=? OR email=?)
+        AND password=?
+        `,
         [login, login, password],
         (err, results) => {
 
             if (err) {
+                console.log(err);
                 return res.status(500).json(err);
             }
 
             if (results.length === 0) {
+
                 return res.status(401).json({
                     message: "Invalid Credentials"
                 });
@@ -229,6 +253,11 @@ app.post("/login", (req, res) => {
         }
     );
 });
+
+// ===========================
+// UPDATE PROFILE
+// ===========================
+
 app.put("/users/:id", (req, res) => {
 
     const id = req.params.id;
@@ -260,27 +289,25 @@ app.put("/users/:id", (req, res) => {
             gender,
             id
         ],
-        (err,result)=>{
+        (err, result) => {
 
-            if(err){
-
+            if (err) {
                 console.log(err);
-
-                return res.status(500)
-                .json(err);
+                return res.status(500).json(err);
             }
 
             res.json({
-                message:
-                "Profile Updated"
+                message: "Profile Updated Successfully"
             });
-
         }
     );
-
 });
 
-app.put("/change-password/:id",(req,res)=>{
+// ===========================
+// CHANGE PASSWORD
+// ===========================
+
+app.put("/change-password/:id", (req, res) => {
 
     const id = req.params.id;
 
@@ -290,51 +317,69 @@ app.put("/change-password/:id",(req,res)=>{
     } = req.body;
 
     db.query(
-        "SELECT * FROM users WHERE id=?",
+        `
+        SELECT *
+        FROM users
+        WHERE id=?
+        `,
         [id],
-        (err,result)=>{
+        (err, result) => {
 
-            if(err)
+            if (err) {
+                console.log(err);
                 return res.status(500).json(err);
+            }
 
-            if(result.length===0){
+            if (result.length === 0) {
 
                 return res.json({
-                    message:"User not found"
+                    message: "User not found"
                 });
             }
 
-            if(
-                result[0].password !==
-                oldPassword
-            ){
+            if (
+                result[0].password !== oldPassword
+            ) {
 
                 return res.json({
-                    message:
-                    "Current password incorrect"
+                    message: "Current password incorrect"
                 });
             }
 
             db.query(
-                "UPDATE users SET password=? WHERE id=?",
-                [newPassword,id],
-                (err)=>{
+                `
+                UPDATE users
+                SET password=?
+                WHERE id=?
+                `,
+                [newPassword, id],
+                (err, updateResult) => {
 
-                    if(err)
-                        return res.status(500)
-                        .json(err);
+                    if (err) {
+                        console.log(err);
+                        return res.status(500).json(err);
+                    }
 
                     res.json({
                         message:
                         "Password Updated Successfully"
                     });
-
                 }
             );
         }
     );
 });
->>>>>>> frontend
+
+// ===========================
+// START SERVER
+// ===========================
+
+const PORT = 3000;
+
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+
+    console.log(
+        `Server running on port ${PORT}`
+    );
+
 });
